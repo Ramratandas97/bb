@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#170d2b">
+<title>Happy Birthday!</title>
+<style>
+:root{--bg:#170d2b;--pink:#ff6fae;--gold:#ffd778;--cream:#fff5e8;--muted:#d8c9e8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 10%,#46205c 0,transparent 35%),radial-gradient(circle at 90% 80%,#3b174d 0,transparent 32%),var(--bg);color:var(--cream);font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
+button{font:inherit;cursor:pointer}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+.nav{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:13px 10px;background:#170d2bdd;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff18}
+.nav button,.btn{border:1px solid #ffffff35;border-radius:999px;padding:10px 17px;color:var(--cream);background:#ffffff10;transition:.25s}
+.nav button:hover,.nav button.active,.btn.primary{background:linear-gradient(110deg,#ff6fae,#a86bff);border-color:transparent;transform:translateY(-2px)}
+main{max-width:960px;margin:auto;padding:28px 18px 70px}
+.page{display:none;min-height:76vh;animation:fade .65s ease both}
+.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+@keyframes fade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.eyebrow{letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font:600 11px Arial,sans-serif}
+h1{font-size:clamp(2.8rem,9vw,6.5rem);line-height:.98;margin:18px 0;color:var(--gold);text-shadow:0 5px 30px #ff6fae55}
+h2{font-size:clamp(2rem,6vw,3.5rem);margin:12px 0 18px;color:var(--gold)}
+p{font-size:clamp(1rem,2.6vw,1.25rem);line-height:1.75;color:var(--muted);max-width:680px}
+.name{color:#ff9bc6}
+.hero-heart{font-size:clamp(3rem,10vw,6rem);animation:heartbeat 1.4s infinite;filter:drop-shadow(0 0 20px #ff6fae)}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.16)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.btn{background:#ffffff12;min-width:125px}
+.btn.primary{font-weight:bold}
+.btn:focus-visible,.nav button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.card{width:min(100%,700px);padding:clamp(22px,5vw,42px);border:1px solid #ffffff24;border-radius:26px;background:linear-gradient(145deg,#ffffff13,#ffffff06);box-shadow:0 20px 70px #0003}
+.wish-line{font-size:clamp(1.25rem,4vw,2rem);color:#fff0d5;line-height:1.6}
+.signature{color:var(--pink);font-style:italic;margin-top:20px}
+.cake{font-size:clamp(6rem,20vw,10rem);display:inline-block;filter:drop-shadow(0 10px 25px #ff9d4a55);animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(2deg)}}
+.envelope-wrap{perspective:800px;margin:28px auto}
+.envelope{position:relative;width:min(78vw,310px);height:195px;background:#ff9bc6;border-radius:10px;box-shadow:0 20px 50px #0004;cursor:pointer;transform-style:preserve-3d}
+.envelope:before{content:"";position:absolute;inset:0;background:#ffb4d2;clip-path:polygon(0 0,100% 0,50% 58%);transform-origin:top;transition:transform .8s;z-index:2}
+.envelope:after{content:"💌";position:absolute;inset:0;display:grid;place-items:center;font-size:3rem}
+.envelope.open:before{transform:rotateX(180deg)}
+.letter{display:none;max-width:600px;margin:20px auto 0;padding:24px;border-radius:18px;background:#fff5e8;color:#4c294b;line-height:1.8;box-shadow:0 15px 50px #0004}
+.letter.show{display:block;animation:fade .7s ease}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;margin-top:18px}
+.memory{min-height:145px;border:1px dashed #ffffff66;border-radius:18px;display:grid;place-items:center;padding:12px;background:#ffffff0b;color:var(--muted);font:14px Arial,sans-serif}
+.memory span{font-size:2rem;display:block;margin-bottom:8px}
+.small{font:12px Arial,sans-serif;color:#bca9d0;margin-top:22px}
+footer{text-align:center;padding:20px;color:#9e8cac;font:12px Arial,sans-serif}
+.sparkle{color:var(--gold);animation:twinkle 1.8s infinite alternate}
+@keyframes twinkle{to{opacity:.35;transform:scale(.8)}}
+@media(max-width:560px){.nav{gap:5px}.nav button{padding:9px 12px;font-size:13px}main{padding:22px 14px 50px}.gallery{grid-template-columns:1fr}.memory{min-height:95px}.page{min-height:72vh}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<nav class="nav" aria-label="Birthday website pages">
+  <button class="active" data-page="home">Home</button>
+  <button data-page="wishes">Wishes</button>
+  <button data-page="memories">Memories</button>
+  <button data-page="surprise">Surprise 🎁</button>
+</nav>
+<main>
+  <section class="page active" id="home">
+    <div class="eyebrow"><span class="sparkle">✦</span> A special day just for you <span class="sparkle">✦</span></div>
+    <div class="hero-heart" aria-hidden="true">💖</div>
+    <h1>Happy Birthday<br><span class="name" id="heroName">Birthday Star</span></h1>
+		<img src="D:\Ram Ratan Document\Susmita\Sunny Birthday Saree Collage.png" alt="D:\Ram Ratan Document\Susmita\Sunny Birthday Saree Collage.png" width="600" height="500">
+
+    <p>Today the world feels a little brighter, because someone as wonderful as you was born. Let the celebration begin!</p>
+    <div class="actions">
+      <button class="btn primary" data-go="wishes">Read your wishes ✨</button>
+      <button class="btn" id="celebrateBtn">Celebrate 🎉</button>
+    </div>
+    <div class="small">Made with love, smiles and a little bit of magic.</div>
+  </section>
+
+  <section class="page" id="wishes">
+    <div class="eyebrow">A little note from the heart</div>
+    <h2>Birthday Wishes</h2>
+    <div class="card">
+      <div class="wish-line">May your days be filled with laughter, your dreams find their wings, and your heart always have a reason to smile.</div>
+      <p>May this new chapter bring you beautiful surprises, genuine people, exciting adventures and countless moments worth remembering. Keep shining and never stop being your amazing self.</p>
+      <div class="signature">With lots of love ❤️</div>
+    </div>
+    <div class="actions"><button class="btn" data-go="home">← Back home</button><button class="btn primary" data-go="memories">Next: Memories →</button></div>
+  </section>
+
+  <section class="page" id="memories">
+    <div class="eyebrow">Little moments, big smiles</div>
+    <h2>Our Memory Lane</h2>
+    <p>Every picture holds a story,
+Some are memories of moments, some are mementos of loved ones.
+Words can't describe every feeling here,
+Sometimes a single picture is the story of a lifetime.</p>
+    <div class="gallery">
+      <div class="memory"><div><span></span><img src="D:\Ram Ratan Document\Susmita\1794378627734.jpg" alt="C:\Users\ramra\Downloads\Birthday.png" width="300" height="200"><br>Pictures may fade with time, but the feelings behind them stay forever</div></div>
+      <div class="memory"><div><span></span><img src="D:\Ram Ratan Document\Susmita\1794378352092.jpg" alt="C:\Users\ramra\Downloads\Birthday.png" width="200" height="200"><br>A photograph freezes a moment, but a beautiful memory makes it live forever. 🌸</div></div>
+      <div class="memory"><div><span></span><img src="D:\Ram Ratan Document\Susmita\1794378342764.jpg" alt="C:\Users\ramra\Downloads\Birthday.png" width="200" height="200"><br>कुछ पल यादें बन जाते हैं, कुछ यादें खज़ाना बन जाती हैं, और कुछ लोग उन्हें यादगार बना देते हैं</div></div>
+    </div>
+   
+    <div class="actions"><button class="btn" data-go="wishes">← Previous</button><button class="btn primary" data-go="surprise">Open your surprise 🎁</button></div>
+  </section>
+
+  <section class="page" id="surprise">
+    <div class="eyebrow">One last thing...</div>
+    <h2>A Surprise for You!</h2>
+    <div class="cake" aria-label="Birthday cake">🎂</div>
+    <p>Make a wish, close your eyes for a moment, and tap the envelope to reveal a little message.</p>
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open birthday letter"></div>
+    </div>
+    <div class="letter" id="letter">
+      <h3>Dear Susmita <span class="name" id="letterName">Birthday Star</span>,💌</h3>
+      <p style="color:#4c294b">If I could wish one thing for you, it would be that you always see how special you are. Your smile can make a day brighter, and your presence is a gift to the people lucky enough to know you. I am genuinely glad our paths crossed. Keep smiling, keep dreaming, and never forget that you deserve the very best. Happy Birthday! 🎉</strong>
+    </div>
+    <div class="actions"><button class="btn" data-go="home">↻ Start again</button><button class="btn primary" id="finalConfetti">More confetti! 🎊</button></div>
+  </section>
+</main>
+<footer><center><p style="font-family: Brush Script MT, sans-serif; font-size: 20px; font-style: italic; font-weight: bold;">© Birthday Celebration • Made with Ram Ratan❤️</center></p></footer>
+
+<script>
+// CUSTOMIZE: Change this name and the messages above to personalize the birthday website.
+const birthdayName = "Birthday Star";
+document.getElementById("heroName").textContent = birthdayName;
+document.getElementById("letterName").textContent = birthdayName;
+
+const pages = [...document.querySelectorAll(".page")];
+const navButtons = [...document.querySelectorAll(".nav button")];
+function showPage(id){
+  pages.forEach(p=>p.classList.toggle("active",p.id===id));
+  navButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(id==="home") burstConfetti(100);
+}
+navButtons.forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
+
+const canvas=document.getElementById("confetti"),ctx=canvas.getContext("2d");
+let pieces=[],raf=null;
+function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
+addEventListener("resize",resize);resize();
+function burstConfetti(amount=150){
+  const colors=["#ff6fae","#ffd778","#9ee7ff","#c5a1ff","#a9f5c5","#ffffff"];
+  for(let i=0;i<amount;i++)pieces.push({x:innerWidth/2+(Math.random()-.5)*innerWidth*.5,y:innerHeight*.35+(Math.random()-.5)*100,w:4+Math.random()*7,h:6+Math.random()*9,vx:(Math.random()-.5)*9,vy:-3+Math.random()*-8+Math.random()*5,rot:Math.random()*6,vr:(Math.random()-.5)*.2,color:colors[Math.floor(Math.random()*colors.length)],life:130+Math.random()*70});
+  if(!raf) animate();
+}
+
+function animate(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  pieces=pieces.filter(p=>p.life-->0&&p.y<innerHeight+30);
+  for(const p of pieces){p.x+=p.vx;p.y+=p.vy;p.vy+=.11;p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore()}
+  if(pieces.length)raf=requestAnimationFrame(animate);else{cancelAnimationFrame(raf);raf=null;ctx.clearRect(0,0,innerWidth,innerHeight)}
+}
+document.getElementById("celebrateBtn").addEventListener("click",()=>burstConfetti(220));
+document.getElementById("finalConfetti").addEventListener("click",()=>burstConfetti(280));
+
+const envelope=document.getElementById("envelope"),letter=document.getElementById("letter");
+function openLetter(){envelope.classList.add("open");letter.classList.add("show");burstConfetti(180)}
+envelope.addEventListener("click",openLetter);
+envelope.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openLetter()}});
+</script>
+</body>
+</html>
